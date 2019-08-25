@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Cookies from 'js-cookie'
 import Navbar from 'react-bootstrap/Navbar'
-import Charts from './Charts'
+import ChartsList from './ChartsList'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -120,7 +120,7 @@ export default class App extends Component {
           onSignout={this.signout}
         />
         <div className="content">
-          <Charts />
+          <ChartsList />
         </div>
       </div>
     )
