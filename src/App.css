@@ -31,3 +31,49 @@
     transform: rotate(360deg);
   }
 }
+
+/* custom css */
+
+html, body {
+  background-color: #F7F7F6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.navbar {
+  background-color: #EEEEEE;
+  border-bottom: 2px solid #E5E5E7;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  color: #000;
+}
+
+.user-photo {
+  height: 23px;
+  width: 23px;
+  border-radius: 2px;
+  margin-right: 11px;
+}
+
+.chart {
+  color: #FFF;
+  background-color: #0b3a53;
+  margin-bottom: 20px;
+  min-height: 100px;
+}
+
+.add-column {
+  color: #FFF;
+  background: #76b1b1;
+  padding: 0;
+}
+
+.content {
+  padding-top: 22px;
+}
+
+.fa-plus-square {
+  margin: 0 auto
+}
