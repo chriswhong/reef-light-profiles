@@ -55,14 +55,12 @@ export default class App extends Component {
   async getUserInfo () {
     // if jwt cookie, do get user data
     if (Cookies.get('jwt')) {
-      const userData = await fetch('/api/user').then(d => {
+      const { user, records } = await fetch('/api/user').then(d => {
         if (d.status !== 401) return d.json()
       })
 
-      if (userData) {
-        this.setState({
-          user: userData
-        })
+      if (user) {
+        this.setState({ user, records })
       }
     }
   }

@@ -33,7 +33,6 @@ export default class OAuth extends Component {
     const left = (window.innerWidth / 2) - (width / 2)
     const top = (window.innerHeight / 2) - (height / 2)
     const url = 'http://localhost:8080/auth/facebook'
-    console.log(url)
 
     return window.open(url, '',
         `toolbar=no, location=no, directories=no, status=no, menubar=no,

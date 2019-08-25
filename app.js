@@ -8,7 +8,8 @@ const logger = require('morgan')
 const passport = require('passport')
 const mongoose = require('mongoose')
 
-const userSchema = require('./schemas/userSchema')
+const userSchema = require('./schemas/user')
+const recordSchema = require('./schemas/record')
 
 const app = express()
 
@@ -16,6 +17,7 @@ const app = express()
 mongoose.connect(process.env.MONGO_URI)
 // create a user model
 const User = mongoose.model('User', userSchema)
+const Record = mongoose.model('Record', recordSchema)
 
 // allows CORS
 app.all('*', (req, res, next) => {
@@ -39,7 +41,7 @@ app.use(cookieParser())
 require('./auth.js')(passport, User)
 app.use(passport.initialize())
 
-app.use('/', require('./routes')(passport))
+app.use('/', require('./routes')(passport, User, Record))
 
 // proxy requests to the react dev server
 // TODO: make sure this only happens in development mode
