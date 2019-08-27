@@ -4,6 +4,7 @@ import * as d3 from 'd3'
 
 export default class Chart extends Component {
   componentDidMount () {
+    const { data } = this.props
     const margin = { top: 10, right: 10, bottom: 10, left: 10 }
     const container = d3.select(this.refs.chartContainer)
     const { width: containerWidth, height: containerHeight } = container.node().getBoundingClientRect()
@@ -24,7 +25,7 @@ export default class Chart extends Component {
 
     const line = d3.line()
       .x((d) => {
-        return xScale(new Date(d.time))
+        return xScale(new Date(d.date))
       })
       .y((d) => yScale(d.value))
       .curve(d3.curveMonotoneX)
@@ -46,25 +47,6 @@ export default class Chart extends Component {
       .selectAll('text')
       .attr('dy', '1.5em')
 
-    const data = [
-      {
-        time: '2019-08-25',
-        value: 8.0
-      },
-      {
-        time: '2019-08-10',
-        value: 7.6
-      },
-      {
-        time: '2019-07-15',
-        value: 7.8
-      },
-      {
-        time: '2019-07-01',
-        value: 7.4
-      }
-    ]
-
     svg.append('path')
       .datum(data)
       .attr('class', 'line')
@@ -75,7 +57,7 @@ export default class Chart extends Component {
       .data(data)
       .enter().append('circle')
       .attr('class', 'dot')
-      .attr('cx', d => xScale(new Date(d.time)))
+      .attr('cx', d => xScale(new Date(d.date)))
       .attr('cy', d => yScale(d.value))
       .attr('r', 3)
   }

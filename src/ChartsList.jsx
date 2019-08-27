@@ -4,15 +4,10 @@ import ChartRow from './ChartRow'
 
 export default class ChartList extends Component {
   render () {
-    const chartNames = [
-      'Salinity',
-      'pH',
-      'Nitrate',
-      'Alkalinity'
-    ]
+    const { records } = this.props
 
-    const chartRows = chartNames.map((chartName) => (
-      <ChartRow key={chartName} title={chartName} />
+    const chartRows = Object.keys(records).map((chartName) => (
+      <ChartRow key={chartName} title={chartName} data={records[chartName]} />
     ))
 
     return (

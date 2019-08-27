@@ -3,9 +3,9 @@ const Schema = mongoose.Schema
 
 var userSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' },
-  parameter: String,
+  type: String,
   value: Number,
-  timestamp: Date
+  date: Date
 })
 
 module.exports = userSchema

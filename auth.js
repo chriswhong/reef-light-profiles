@@ -58,7 +58,6 @@ module.exports = (passport, User) => {
     }
   }, (jwtPayload, done) => {
     User.findOne({ id: jwtPayload.sub }, (err, user) => {
-      console.log(err, user)
       if (err) {
         return done(err, false)
       }

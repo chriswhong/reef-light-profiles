@@ -5,6 +5,11 @@ const { jwtOptions } = require('../config')
 
 var router = express.Router()
 
+const getRecords = (type, response) => {
+  const match = response.find(d => d._id === type)
+  return match ? match.records : []
+}
+
 module.exports = (passport, User, Record) => {
   // Generate an Access Token for the given User ID
   const generateAccessToken = (userId) => {
@@ -20,21 +25,44 @@ module.exports = (passport, User, Record) => {
 
   router.get('/api/user', passport.authenticate('jwt', { session: false }), async (req, res) => {
     // get records for this user
-    const records = await Record.find({ user: req.user._id })
+    const dbResponse = await Record
+      .aggregate([
+        {
+          $match: {
+            user: req.user._id
+          }
+        },
+        {
+          $group: {
+            _id: '$type',
+            records: {
+              $push: {
+                date: '$date',
+                value: '$value'
+              }
+            }
+          }
+        }
+      ])
 
     res.json({
       user: req.user,
-      records
+      records: {
+        ph: getRecords('ph', dbResponse),
+        alkalinity: getRecords('alkalinity', dbResponse),
+        nitrate: getRecords('nitrate', dbResponse)
+      }
     })
   })
 
   router.post('/api/record', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { type, date, value } = req.body
     // create a dummy record
     const record = new Record({
       user: req.user._id,
-      parameter: 'ph',
-      value: 8.3,
-      timestamp: new Date()
+      type,
+      date,
+      value
     })
 
     record.save((err) => {

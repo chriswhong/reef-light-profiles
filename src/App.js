@@ -111,7 +111,7 @@ export default class App extends Component {
   }
 
   render () {
-    const { user } = this.state
+    const { user, records } = this.state
     return (
       <div className="App">
         <NavbarComponent
@@ -120,7 +120,7 @@ export default class App extends Component {
           onSignout={this.signout}
         />
         <div className="content">
-          <ChartsList />
+          {records && <ChartsList records={records}/>}
         </div>
       </div>
     )

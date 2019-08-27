@@ -6,6 +6,10 @@ import Chart from './Chart'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
+const validateForm = (date, value) => {
+  return date instanceof Date && value > 0
+}
+
 export default class ChartRow extends Component {
   constructor (props) {
     super(props)
@@ -13,14 +17,12 @@ export default class ChartRow extends Component {
     this.state = {
       showForm: false,
       formDate: new Date(),
-      formValue: '',
-      formValid: false
+      formValue: ''
     }
 
     this.showForm = this.showForm.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
     this.handleValueChange = this.handleValueChange.bind(this)
-    this.validateForm = this.validateForm.bind(this)
     this.handleFormSave = this.handleFormSave.bind(this)
   }
 
@@ -38,28 +40,38 @@ export default class ChartRow extends Component {
 
   handleValueChange (e) {
     this.setState({ formValue: e.target.value })
-    this.validateForm()
   }
 
-  handleFormSave () {
-    this.setState({ showForm: false })
-  }
+  async handleFormSave () {
+    const { formDate: date, formValue: value } = this.state
+    try {
+      await fetch('/api/record', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: 'ph',
+          date,
+          value
+        })
+      })
 
-  validateForm () {
-    const { formDate, formValue } = this.state
-    const formValid = formDate instanceof Date || formValue > 0
-
-    this.setState({ formValid })
+      this.setState({ showForm: false })
+    } catch (e) {
+    }
   }
 
   render () {
-    const { formValid, showForm, formDate, formValue } = this.state
-    const { chartName } = this.props
+    const { showForm, formDate, formValue } = this.state
+    const { chartName, data } = this.props
+    const formValid = validateForm(formDate, formValue)
+
     return (
       <div className='row chart'>
         <div className='col-11 text-left pt-2'>
           <h6>{chartName}</h6>
-          <Chart />
+          <Chart data={data}/>
         </div>
         <div
           className='col-1 add-column d-flex align-items-center'
