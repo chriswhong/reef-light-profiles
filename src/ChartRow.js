@@ -64,14 +64,14 @@ export default class ChartRow extends Component {
 
   render () {
     const { showForm, formDate, formValue } = this.state
-    const { chartName, data } = this.props
+    const { title, yRange, data } = this.props
     const formValid = validateForm(formDate, formValue)
 
     return (
       <div className='row chart'>
         <div className='col-11 text-left pt-2'>
-          <h6>{chartName}</h6>
-          <Chart data={data}/>
+          <h6>{title}</h6>
+          <Chart yRange={yRange} data={data}/>
         </div>
         <div
           className='col-1 add-column d-flex align-items-center'

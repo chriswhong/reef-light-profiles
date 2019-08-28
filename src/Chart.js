@@ -4,8 +4,8 @@ import * as d3 from 'd3'
 
 export default class Chart extends Component {
   componentDidMount () {
-    const { data } = this.props
-    const margin = { top: 10, right: 10, bottom: 10, left: 10 }
+    const { data, yRange } = this.props
+    const margin = { top: 10, right: 10, bottom: 30, left: 10 }
     const container = d3.select(this.refs.chartContainer)
     const { width: containerWidth, height: containerHeight } = container.node().getBoundingClientRect()
 
@@ -20,7 +20,7 @@ export default class Chart extends Component {
       .range([0, width])
 
     const yScale = d3.scaleLinear()
-      .domain([7.0, 9.0])
+      .domain(yRange)
       .range([height, 0])
 
     const line = d3.line()
@@ -42,7 +42,8 @@ export default class Chart extends Component {
       .attr('transform', 'translate(0,' + (height) + ')')
       .call(
         d3.axisBottom(xScale)
-          .tickSize(0)
+          .ticks(d3.timeMonth.every(1))
+          .tickFormat(d3.timeFormat('%b %e'))
       )
       .selectAll('text')
       .attr('dy', '1.5em')
