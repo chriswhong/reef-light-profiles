@@ -109,6 +109,9 @@ export default class App extends Component {
 
   async componentDidMount () {
     this.getUserInfo()
+    window.addEventListener('message', ({ data }) => {
+      if (data === 'triggerAuth') this.getUserInfo()
+    })
   }
 
   render () {
