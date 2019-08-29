@@ -3,11 +3,36 @@ import * as d3 from 'd3'
 // inital implementation guided by https://bl.ocks.org/kdubbels/c445744cd3ffa18a5bb17ac8ad70017e
 
 export default class Chart extends Component {
+  constructor (props) {
+    super(props)
+
+    this.renderChart = this.renderChart.bind(this)
+  }
+
   componentDidMount () {
+    this.container = d3.select(this.refs.chartContainer)
+    const svg = this.container.append('svg')
+      .append('g')
+
+    svg.append('g')
+      .attr('class', 'x axis')
+
+    svg.append('path')
+      .attr('class', 'line')
+
+    this.renderChart()
+    window.addEventListener('resize', this.renderChart)
+  }
+
+  componentDidUpdate () {
+    this.renderChart()
+  }
+
+  renderChart () {
     const { data, yRange } = this.props
     const margin = { top: 10, right: 10, bottom: 30, left: 10 }
-    const container = d3.select(this.refs.chartContainer)
-    const { width: containerWidth, height: containerHeight } = container.node().getBoundingClientRect()
+
+    const { width: containerWidth, height: containerHeight } = this.container.node().getBoundingClientRect()
 
     const width = containerWidth - margin.left - margin.right
     const height = containerHeight - margin.top - margin.bottom
@@ -30,15 +55,16 @@ export default class Chart extends Component {
       .y((d) => yScale(d.value))
       .curve(d3.curveMonotoneX)
 
-    const svg = container.append('svg')
+    const svg = this.container.select('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
-      .append('g')
+
+    const g = svg.select('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
     // x axis
-    svg.append('g')
-      .attr('class', 'x axis')
+    g.select('g')
+      //
       .attr('transform', 'translate(0,' + (height) + ')')
       .call(
         d3.axisBottom(xScale)
@@ -48,26 +74,38 @@ export default class Chart extends Component {
       .selectAll('text')
       .attr('dy', '1.5em')
 
-    svg.append('path')
+    g.selectAll('.line')
       .datum(data)
-      .attr('class', 'line')
+      .transition()
+      .duration(250)
       .attr('d', line)
 
     // render circles below the x-axis for each time specified in the file
-    svg.selectAll('.dot')
+    const circle = g.selectAll('.dot')
       .data(data)
-      .enter().append('circle')
+
+    const circleX = d => xScale(new Date(d.date))
+    const circleY = d => yScale(d.value)
+    const circleR = 3
+
+    circle.enter()
+      .append('circle')
       .attr('class', 'dot')
-      .attr('cx', d => xScale(new Date(d.date)))
-      .attr('cy', d => yScale(d.value))
-      .attr('r', 3)
+      .attr('cx', circleX)
+      .attr('cy', circleY)
+      .attr('r', circleR)
+
+    circle
+      .transition()
+      .duration(250)
+      .attr('cx', circleX)
+      .attr('cy', circleY)
+      .attr('r', circleR)
   }
 
   render () {
     return (
-      <div className='chart-container' ref='chartContainer'>
-
-      </div>
+      <div className='chart-container' ref='chartContainer' />
     )
   }
 }

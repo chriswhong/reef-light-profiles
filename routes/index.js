@@ -32,6 +32,7 @@ module.exports = (passport, User, Record) => {
             user: req.user._id
           }
         },
+        { $sort: { date: -1 } },
         {
           $group: {
             _id: '$type',

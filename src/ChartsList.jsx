@@ -22,10 +22,16 @@ const chartSettings = [
 
 export default class ChartList extends Component {
   render () {
-    const { records } = this.props
+    const { records, getUserInfo } = this.props
 
     const chartRows = chartSettings.map(({ type, displayName, yRange }) => (
-      <ChartRow key={type} title={displayName} yRange={yRange} data={records[type]} />
+      <ChartRow
+        key={type}
+        title={displayName}
+        yRange={yRange}
+        data={records[type]}
+        getUserInfo={getUserInfo}
+      />
     ))
 
     return (

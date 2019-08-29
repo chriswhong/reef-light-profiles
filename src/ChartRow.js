@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import DatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Chart from './Chart'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -21,6 +22,7 @@ export default class ChartRow extends Component {
     }
 
     this.showForm = this.showForm.bind(this)
+    this.hideForm = this.hideForm.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
     this.handleValueChange = this.handleValueChange.bind(this)
     this.handleFormSave = this.handleFormSave.bind(this)
@@ -29,6 +31,12 @@ export default class ChartRow extends Component {
   showForm () {
     this.setState({
       showForm: true
+    })
+  }
+
+  hideForm () {
+    this.setState({
+      showForm: false
     })
   }
 
@@ -58,6 +66,7 @@ export default class ChartRow extends Component {
       })
 
       this.setState({ showForm: false })
+      this.props.getUserInfo()
     } catch (e) {
     }
   }
@@ -86,6 +95,7 @@ export default class ChartRow extends Component {
         {
           showForm && (
             <div className='entry-form d-flex flex-column justify-content-between'>
+              <FontAwesomeIcon icon={faTimes} onClick={this.hideForm} />
               <h6>pH Reading</h6>
               <DatePicker
                 selected={formDate}

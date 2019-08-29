@@ -71,6 +71,7 @@ export default class App extends Component {
 
     this.signout = this.signout.bind(this)
     this.signinFacebook = this.signinFacebook.bind(this)
+    this.getUserInfo = this.getUserInfo.bind(this)
   }
 
   async getUserInfo () {
@@ -120,7 +121,12 @@ export default class App extends Component {
           onSignout={this.signout}
         />
         <div className="content">
-          {records && <ChartsList records={records}/>}
+          {records && (
+            <ChartsList
+              records={records}
+              getUserInfo={this.getUserInfo}
+            />
+          )}
         </div>
       </div>
     )

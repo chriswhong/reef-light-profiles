@@ -134,3 +134,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #FFF;
   text-align: center;
 }
+
+.entry-form .fa-times {
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  cursor: pointer;
+}
