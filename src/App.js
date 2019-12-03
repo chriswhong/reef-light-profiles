@@ -6,6 +6,13 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
+import NewProfile from './NewProfile'
 
 import OAuth from './OAuth'
 
@@ -116,6 +123,7 @@ export default class App extends Component {
 
   render () {
     const { user, records } = this.state
+    console.log(user)
     return (
       <div className="App">
         <NavbarComponent
@@ -124,12 +132,25 @@ export default class App extends Component {
           onSignout={this.signout}
         />
         <div className="content">
-          {records && (
-            <ChartsList
-              records={records}
-              getUserInfo={this.getUserInfo}
-            />
-          )}
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <>
+                  Continue with Facebook
+                  { user && (
+                  <>
+                    <p>You are logged in as {user.name}</p>
+                    <h3>Light Profiles</h3>
+                    <Link to='/new'>Add a new profile</Link>
+                  </>
+                  )}
+                </>
+              </Route>
+              <Route path="/new">
+                <NewProfile />
+              </Route>
+            </Switch>
+          </Router>
         </div>
       </div>
     )

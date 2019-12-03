@@ -74,7 +74,8 @@ module.exports = (passport, User, Record) => {
 
   router.get('/auth/facebook', passport.authenticate('facebook', {
     session: false,
-    scope: ['email']
+    scope: ['email'],
+    display: 'popup'
   }))
 
   router.get('/auth/facebook/callback',
