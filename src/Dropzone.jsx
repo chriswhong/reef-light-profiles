@@ -9,10 +9,10 @@ const baseStyle = {
   padding: '50px',
   borderWidth: 2,
   borderRadius: 18,
-  borderColor: '#eeeeee',
+  borderColor: 'rgb(179, 179, 179)',
   borderStyle: 'dashed',
   backgroundColor: '#fafafa',
-  color: '#bdbdbd',
+  color: 'rgb(179, 179, 179)',
   outline: 'none',
   transition: 'border .24s ease-in-out'
 }
@@ -66,10 +66,10 @@ const DropZone = (props) => {
   ])
 
   return (
-    <section className="container">
+    <section>
       <div {...getRootProps({ className: 'dropzone', style })}>
         <input {...getInputProps()} />
-        <p>Drag and drop an aip file here, or click to select one</p>
+        <p>Drag and drop a .aip file here, or click to select one</p>
       </div>
     </section>
   )

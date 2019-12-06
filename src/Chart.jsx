@@ -2,8 +2,14 @@ import React from 'react'
 import * as d3 from 'd3'
 
 class Chart extends React.Component {
+  constructor (props) {
+    super(props)
+    this.chartContainer = React.createRef()
+  }
+
   componentDidMount () {
     const { data } = this.props
+    console.log(JSON.stringify(data, null, 2))
 
     // clean up the data so it looks like
     // [
@@ -35,13 +41,15 @@ class Chart extends React.Component {
       d3.select('.chart').select('svg').remove()
       // chart based on https://bl.ocks.org/gordlea/27370d1eea8464b04538e6d8ced39e89
 
+      const { offsetWidth: containerWidth, offsetHeight: containerHeight } = this.chartContainer.current
+      console.log(containerHeight)
       // TODO get the width of the container and do everything dynamically
-      const margin = { top: 50, right: 50, bottom: 100, left: 50 }
-      const width = 960 - margin.left - margin.right
-      const height = 500 - margin.top - margin.bottom
+      const margin = { top: 35, right: 30, bottom: 60, left: 26 }
+      const width = containerWidth - margin.left - margin.right
+      const height = containerHeight - margin.top - margin.bottom
 
       const xMax = 1440 // x axis is # of minutes in a day
-      const yMax = 1500 // assume 2000 is max y, not sure what max intensity can be
+      const yMax = 2000 // assume 2000 is max y, not sure what max intensity can be
       const xTickValues = [0, 240, 480, 720, 960, 1200, 1440]
       const yTickValues = [0, 500, 1000, 1500, 2000]
 
@@ -56,7 +64,6 @@ class Chart extends React.Component {
       const line = d3.line()
         .x(function (d) { return xScale(parseInt(d.time)) })
         .y(function (d) { return yScale(parseInt(d.intensity)) })
-        .curve(d3.curveMonotoneX)
 
       const svg = d3.select('.chart').append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -64,24 +71,33 @@ class Chart extends React.Component {
         .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
+      const axisBottom = d3.axisBottom(xScale)
+        .tickValues(xTickValues)
+        .tickSize(0)
+        .tickFormat((d) => {
+          // handle midnight
+          if (d === 0 || d === 1440) return '12AM'
+          // handle noon
+          if (d === 720) return '12AM'
+          // handle pm
+          if (d > 720) return `${(d - 720) / 60}PM`
+          return `${d / 60}AM`
+        })
+
       // x axis
       svg.append('g')
         .attr('class', 'x axis')
         .attr('transform', 'translate(0,' + (height) + ')')
-        .call(
-          d3.axisBottom(xScale)
-            .tickValues(xTickValues)
-            .tickSize(0)
-            .tickFormat((d) => {
-              // handle midnight
-              if (d === 0 || d === 1440) return '12AM'
-              // handle noon
-              if (d === 720) return '12AM'
-              // handle pm
-              if (d > 720) return `${(d - 720) / 60}PM`
-              return `${d / 60}AM`
-            })
-        )
+        .call(axisBottom)
+        .selectAll('text')
+        .attr('dy', '1.5em')
+
+      // x axis on top
+      svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0,-50)')
+        .call(axisBottom)
+        .call(g => g.select('.domain').remove())
         .selectAll('text')
         .attr('dy', '1.5em')
 
@@ -219,9 +235,8 @@ class Chart extends React.Component {
   render () {
     const { filename } = this.props
     return (
-      <div className="chart-container">
-        <h2>{filename}</h2>
-        <div className="chart"></div>
+      <div className='chart-container' ref={this.chartContainer}>
+        <div className='chart'></div>
       </div>
     )
   }

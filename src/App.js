@@ -8,18 +8,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 import {
   BrowserRouter as Router,
+  Redirect,
   Switch,
   Route,
   Link
 } from 'react-router-dom'
+import Profile from './Profile'
 import NewProfile from './NewProfile'
+import CreateUsername from './CreateUsername'
 
 import OAuth from './OAuth'
 
 const NavbarComponent = (props) => {
   const user = props.user
   let userNav = null
-
   if (user) {
     const userTitle = (
       <>
@@ -79,6 +81,11 @@ export default class App extends Component {
     this.signout = this.signout.bind(this)
     this.signinFacebook = this.signinFacebook.bind(this)
     this.getUserInfo = this.getUserInfo.bind(this)
+    this.updateUser = this.updateUser.bind(this)
+  }
+
+  updateUser (user, records) {
+    this.setState({ user })
   }
 
   async getUserInfo () {
@@ -123,7 +130,7 @@ export default class App extends Component {
 
   render () {
     const { user, records } = this.state
-    console.log(user)
+    console.log('user', user)
     return (
       <div className="App">
         <NavbarComponent
@@ -133,6 +140,9 @@ export default class App extends Component {
         />
         <div className="content">
           <Router>
+            {
+              user && (user.username === undefined) && (<Redirect to="/create-username" />)
+            }
             <Switch>
               <Route exact path="/">
                 <>
@@ -147,7 +157,11 @@ export default class App extends Component {
                 </>
               </Route>
               <Route path="/new">
-                <NewProfile />
+                <NewProfile user={user}/>
+              </Route>
+              <Route path="/:username/profile/:_id" component={Profile}/>
+              <Route path="/create-username">
+                <CreateUsername updateUser={this.updateUser}/>
               </Route>
             </Switch>
           </Router>

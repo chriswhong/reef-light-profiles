@@ -8,4 +8,4 @@ Create `.env` in root directory with:
  - `JWT_SECRET`
 
 In two terminal windows: `yarn server-start` and `yarn start`
-Go to `http://localhost:3000`
+Go to `http://localhost:8080`

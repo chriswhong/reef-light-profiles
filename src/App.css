@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
 }
 
 .App-logo {
@@ -57,14 +56,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 11px;
 }
 
-.chart {
-  color: #FFF;
-  background-color: #0b3a53;
-  margin-bottom: 20px;
-  min-height: 150px;
-  position: relative;
-}
-
 .add-column {
   color: #FFF;
   background: #76b1b1;
@@ -77,14 +68,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .fa-plus-square {
   margin: 0 auto
-}
-
-.chart-container {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .line {
@@ -140,4 +123,97 @@ h1, h2, h3, h4, h5, h6 {
   left: 9px;
   top: 6px;
   cursor: pointer;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+}
+
+.link-like {
+  color: blue;
+}
+
+.link-like:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.publish-btn {
+  width: 100%;
+  height: 68px;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+/*  D3 Chart  */
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ced4db;
+  border-radius: 4px;
+}
+
+.chart {
+  height: 380px;
+  width: 100%;
+}
+
+.tick line {
+  stroke: #eeeeee;
+  stroke-width: 1.5;
+}
+
+.tick text {
+  font-size: 12px;
+  font-weight: 100;
+  transform: translateY(20px);
+  fill: #908e8e;
+}
+
+.line {
+  fill: none;
+  stroke-width: 1;
+}
+
+.deep_red {
+  stroke: #d83e3f;
+}
+
+.uv {
+  stroke: #c953d9;
+}
+
+.violet {
+  stroke: #8b4edb;
+}
+
+.cool_white {
+  stroke: #54b8c6;
+}
+
+.green {
+  stroke: #66c167;
+}
+
+.blue {
+  stroke: #186cc5;
+}
+
+.royal {
+  stroke: #243ac6;
+}
+
+.dot {
+  fill: steelblue;
+}
+
+/*  Drop Zone  */
+
+.dropzone {
+  font-size: 2rem;
+  padding: 50px;
+  border: 5px #b3b3b3 dashed;
+  border-radius: 18px;
 }

@@ -1,0 +1,945 @@
+{
+  "_declaration": {
+    "_attributes": {
+      "version": "1.0",
+      "encoding": "UTF-8",
+      "standalone": "yes"
+    }
+  },
+  "ramp": {
+    "header": {
+      "version": {
+        "_text": "2"
+      },
+      "checksum": {
+        "_text": "1049837684"
+      }
+    },
+    "colors": {
+      "deep_red": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "942"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1538"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1788"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1902"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1980"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "2000"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1980"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1902"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1788"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1538"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "942"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      },
+      "uv": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "471"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "769"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "894"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "951"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "990"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1000"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "990"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "951"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "894"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "769"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "471"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      },
+      "violet": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "6"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "916"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1495"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1738"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1849"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1925"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1944"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1925"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1849"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1738"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1495"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "916"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      },
+      "cool_white": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "6"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "113"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "185"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "215"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "228"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "238"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "240"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "238"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "228"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "215"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "185"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "113"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "9"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      },
+      "green": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "665"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1086"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1263"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1344"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1399"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1413"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1399"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1344"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1263"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1086"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "665"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      },
+      "blue": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "6"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "883"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1442"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1676"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1783"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1856"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1875"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1856"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1783"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1676"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1442"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "883"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "14"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      },
+      "royal": {
+        "point": [
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "0"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "370"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "14"
+            },
+            "time": {
+              "_text": "450"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "895"
+            },
+            "time": {
+              "_text": "510"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1461"
+            },
+            "time": {
+              "_text": "570"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1699"
+            },
+            "time": {
+              "_text": "630"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1807"
+            },
+            "time": {
+              "_text": "690"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1881"
+            },
+            "time": {
+              "_text": "750"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1900"
+            },
+            "time": {
+              "_text": "810"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1881"
+            },
+            "time": {
+              "_text": "870"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1807"
+            },
+            "time": {
+              "_text": "930"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1699"
+            },
+            "time": {
+              "_text": "990"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "1461"
+            },
+            "time": {
+              "_text": "1050"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "895"
+            },
+            "time": {
+              "_text": "1110"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "6"
+            },
+            "time": {
+              "_text": "1170"
+            }
+          },
+          {
+            "intensity": {
+              "_text": "0"
+            },
+            "time": {
+              "_text": "1250"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
