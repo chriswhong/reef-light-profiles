@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser')
 const mustacheExpress = require('mustache-express')
 const proxy = require('http-proxy-middleware')
 const logger = require('morgan')
-const passport = require('passport')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
@@ -41,10 +40,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(bodyParser.json())
 
-require('./auth.js')(passport, User)
-app.use(passport.initialize())
-
-app.use('/', require('./routes')(passport, User, Profile))
+app.use('/', require('./routes')(User, Profile))
 
 // proxy requests to the react dev server
 // TODO: make sure this only happens in development mode

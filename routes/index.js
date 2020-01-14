@@ -1,5 +1,7 @@
 var express = require('express')
-const jwt = require('jsonwebtoken')
+const jwt = require('express-jwt')
+const jwksRsa = require('jwks-rsa')
+const authConfig = require('./auth_config.json')
 
 const { jwtOptions } = require('../config')
 
@@ -10,7 +12,19 @@ const getRecords = (type, response) => {
   return match ? match.records : []
 }
 
-module.exports = (passport, User, Profile) => {
+var checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://reef-profiles.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'https://localhost:3000',
+  issuer: 'https://reef-profiles.auth0.com/',
+  algorithms: ['RS256']
+})
+
+module.exports = (User, Profile) => {
   // Generate an Access Token for the given User ID
   const generateAccessToken = (userId) => {
     const { expiresIn, issuer, audience, secret } = jwtOptions
@@ -23,7 +37,7 @@ module.exports = (passport, User, Profile) => {
     })
   }
 
-  router.get('/api/user', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  router.get('/api/user', checkJwt, async (req, res) => {
     // // get records for this user
     // const dbResponse = await Record
     //   .aggregate([
@@ -51,11 +65,12 @@ module.exports = (passport, User, Profile) => {
     })
   })
 
-  router.put('/api/user', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { _id } = req.user
+  router.put('/api/user', checkJwt, async (req, res) => {
+    console.log('user', req.user)
+    const { sub } = req.user
     const { username } = req.body
 
-    // check if unique, if not return error
+    console.log('user', User)
 
     const match = await User.findOne({ username })
     if (match) {
@@ -67,13 +82,14 @@ module.exports = (passport, User, Profile) => {
     }
 
     // update the current user
+    console.log('updating', sub, username)
     const user = await User.findOneAndUpdate(
-      { _id },
+      { sub },
       { username },
-      { new: true }
+      { new: true, upsert: true }
     )
 
-    console.log(user)
+    console.log('new user', user)
 
     res.json({
       user
@@ -87,7 +103,7 @@ module.exports = (passport, User, Profile) => {
     res.json(profile)
   })
 
-  router.post('/api/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+  router.post('/api/profile', checkJwt, (req, res) => {
     const { title, description, settings } = req.body
     // create a dummy record
     const record = new Profile({
@@ -105,21 +121,6 @@ module.exports = (passport, User, Profile) => {
       })
     })
   })
-
-  router.get('/auth/facebook', passport.authenticate('facebook', {
-    session: false,
-    scope: ['email'],
-    display: 'popup'
-  }))
-
-  router.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { session: false }),
-    (req, res) => {
-      const accessToken = generateAccessToken(req.user.id)
-      res.cookie('jwt', accessToken)
-      res.render('authenticated')
-    }
-  )
 
   return router
 }
