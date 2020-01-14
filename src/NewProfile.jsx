@@ -7,7 +7,7 @@ import Dropzone from './Dropzone'
 import dummyJson from './dummy.json'
 
 const NewProfile = (props) => {
-  const { user } = props
+  const { user, username, getTokenSilently } = props
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [settings, setSettings] = React.useState(null)
@@ -22,7 +22,6 @@ const NewProfile = (props) => {
   }
 
   const handleChange = (e) => {
-    console.log('handleChange')
     const { id, value } = e.target
     if (id === 'title') setTitle(value)
     if (id === 'description') setDescription(value)
@@ -34,16 +33,18 @@ const NewProfile = (props) => {
       description,
       settings
     }
-    const { _id } = await fetch('http://localhost:8080/api/profile', {
+    const token = await getTokenSilently()
+    const { _id } = await fetch('http://localhost:3000/api/profile', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     })
       .then(d => d.json())
 
-    props.history.push(`/${user.username}/profile/${_id}`)
+    props.history.push(`/${username}/profile/${_id}`)
   }
 
   const valid = title && description && settings

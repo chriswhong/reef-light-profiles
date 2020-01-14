@@ -21,8 +21,7 @@ const NewProfile = (props) => {
 
     fetchData()
   }, [])
-  console.log('profile', profile)
-  const { settings } = profile
+  const { title, description, settings } = profile
 
   return (
     <div className='container'>
@@ -32,9 +31,11 @@ const NewProfile = (props) => {
           <p>Enter a title and description, then drag in your .aip file below.</p>
           <div className='form-group'>
             <label htmlFor='title'>Title</label>
+            { title }
           </div>
           <div className='form-group'>
             <label htmlFor='description'>Description</label>
+            { description }
           </div>
         </div>
       </div>

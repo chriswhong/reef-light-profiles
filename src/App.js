@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -7,19 +7,19 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import Authenticated from './Authenticated'
 import Profile from './Profile'
 import NewProfile from './NewProfile'
+import Dashboard from './Dashboard'
 import CreateUsername from './CreateUsername'
 import NavbarComponent from './NavbarComponent'
 import { useAuth0 } from './react-auth0-spa'
-console.log(useAuth0)
 
 const App = () => {
   const auth0 = useAuth0()
   const { loading, user, loginWithRedirect, logout, getTokenSilently } = auth0
 
-  console.log('loading', loading)
-  console.log('user', user)
+  const [username, setUsername] = useState('')
 
   return (
     <div className="App">
@@ -27,7 +27,7 @@ const App = () => {
       <div className="content">
         <Router>
           {
-            user && (user.username === undefined) && (<Redirect to="/create-username" />)
+            user && !username && (<Redirect to="/authenticated" />)
           }
           <Switch>
             <Route exact path="/">
@@ -42,11 +42,23 @@ const App = () => {
                 </>
             </Route>
             <Route path="/new">
-              <NewProfile user={user}/>
+              <NewProfile user={user} username={username} getTokenSilently={getTokenSilently}/>
             </Route>
+            <Route
+              path="/authenticated"
+              render={() => <Authenticated
+                setUsername={setUsername}
+                getTokenSilently={getTokenSilently}
+                loading={loading}
+                username={username}
+              />}
+            />
             <Route path="/:username/profile/:_id" component={Profile}/>
             <Route path="/create-username">
-              <CreateUsername getTokenSilently={getTokenSilently}/>
+              <CreateUsername getTokenSilently={getTokenSilently} setUsername={setUsername}/>
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard getTokenSilently={getTokenSilently} loading={loading} username={username}/>
             </Route>
           </Switch>
         </Router>

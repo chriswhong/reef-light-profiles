@@ -21,7 +21,11 @@ const NavbarComponent = ({ user, isAuthenticated, loginWithRedirect, logout }) =
     userNav = (
       <>
         <Nav.Item>
-          <Nav.Link href="/" onClick={() => { loginWithRedirect() }}>Sign In</Nav.Link>
+          <Nav.Link href="/" onClick={() => {
+            loginWithRedirect({
+              redirect_uri: 'http://localhost:3000/authenticated'
+            })
+          }}>Sign In</Nav.Link>
         </Nav.Item>
       </>
     )

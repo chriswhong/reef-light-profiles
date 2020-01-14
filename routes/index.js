@@ -37,40 +37,47 @@ module.exports = (User, Profile) => {
     })
   }
 
-  router.get('/api/user', checkJwt, async (req, res) => {
-    // // get records for this user
-    // const dbResponse = await Record
-    //   .aggregate([
-    //     {
-    //       $match: {
-    //         user: req.user._id
-    //       }
-    //     },
-    //     { $sort: { date: -1 } },
-    //     {
-    //       $group: {
-    //         _id: '$type',
-    //         records: {
-    //           $push: {
-    //             date: '$date',
-    //             value: '$value'
-    //           }
-    //         }
-    //       }
-    //     }
-    //   ])
+  // get user's list of profiles
+  router.get('/api/dashboard', checkJwt, async (req, res) => {
+    // find the user
+    const { sub } = req.user
+    const user = await User.findOne({ sub })
 
+    // find all matching profiles
+    const profiles = await Profile.find({ user: user._id })
+    if (profiles) {
+      res.json(profiles)
+    }
+
+    res.status(422)
     res.json({
-      user: req.user
+      error: `no profiles found for user ${sub}`
+    })
+  })
+
+  router.get('/api/user', checkJwt, async (req, res) => {
+    const { sub } = req.user
+    console.log(sub)
+
+    const match = await User.findOne({ sub })
+    console.log(match)
+    if (match) {
+      const { username } = match
+      res.json({
+        sub,
+        username
+      })
+    }
+
+    res.status(422)
+    res.json({
+      error: `no username defined for user ${sub}`
     })
   })
 
   router.put('/api/user', checkJwt, async (req, res) => {
-    console.log('user', req.user)
     const { sub } = req.user
     const { username } = req.body
-
-    console.log('user', User)
 
     const match = await User.findOne({ username })
     if (match) {
@@ -82,14 +89,11 @@ module.exports = (User, Profile) => {
     }
 
     // update the current user
-    console.log('updating', sub, username)
     const user = await User.findOneAndUpdate(
       { sub },
       { username },
       { new: true, upsert: true }
     )
-
-    console.log('new user', user)
 
     res.json({
       user
@@ -103,11 +107,15 @@ module.exports = (User, Profile) => {
     res.json(profile)
   })
 
-  router.post('/api/profile', checkJwt, (req, res) => {
+  router.post('/api/profile', checkJwt, async (req, res) => {
     const { title, description, settings } = req.body
+    // find the user
+    const { sub } = req.user
+    const user = await User.findOne({ sub })
+
     // create a dummy record
     const record = new Profile({
-      user: req.user._id,
+      user: user._id,
       title,
       description,
       settings

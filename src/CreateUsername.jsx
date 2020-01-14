@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 
 const CreateUsername = (props) => {
-  const { getTokenSilently } = props
+  const { getTokenSilently, setUsername: updateUsername } = props
   const [username, setUsername] = React.useState('')
   const [error, setError] = React.useState('')
 
@@ -24,7 +24,7 @@ const CreateUsername = (props) => {
         }
 
         // update the user
-        res.user && props.updateUser(res.user)
+        res.user && props.updateUsername(res.user)
         // navigate to user page
         props.history.push('/')
       })

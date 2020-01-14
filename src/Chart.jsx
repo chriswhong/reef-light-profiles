@@ -9,7 +9,6 @@ class Chart extends React.Component {
 
   componentDidMount () {
     const { data } = this.props
-    console.log(JSON.stringify(data, null, 2))
 
     // clean up the data so it looks like
     // [
@@ -42,7 +41,6 @@ class Chart extends React.Component {
       // chart based on https://bl.ocks.org/gordlea/27370d1eea8464b04538e6d8ced39e89
 
       const { offsetWidth: containerWidth, offsetHeight: containerHeight } = this.chartContainer.current
-      console.log(containerHeight)
       // TODO get the width of the container and do everything dynamically
       const margin = { top: 35, right: 30, bottom: 60, left: 26 }
       const width = containerWidth - margin.left - margin.right
