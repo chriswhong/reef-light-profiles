@@ -1,7 +1,7 @@
 import React from 'react'
 import * as d3 from 'd3'
 
-class Chart extends React.Component {
+class ProfileChart extends React.Component {
   constructor (props) {
     super(props)
     this.chartContainer = React.createRef()
@@ -36,8 +36,9 @@ class Chart extends React.Component {
       }
     })
 
+
     if (data) {
-      d3.select('.chart').select('svg').remove()
+      d3.select(this.chartContainer.current).select('svg').remove()
       // chart based on https://bl.ocks.org/gordlea/27370d1eea8464b04538e6d8ced39e89
 
       const { offsetWidth: containerWidth, offsetHeight: containerHeight } = this.chartContainer.current
@@ -63,7 +64,7 @@ class Chart extends React.Component {
         .x(function (d) { return xScale(parseInt(d.time)) })
         .y(function (d) { return yScale(parseInt(d.intensity)) })
 
-      const svg = d3.select('.chart').append('svg')
+      const svg = d3.select(this.chartContainer.current).append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
@@ -233,11 +234,11 @@ class Chart extends React.Component {
   render () {
     const { filename } = this.props
     return (
-      <div className='chart-container' ref={this.chartContainer}>
-        <div className='chart'></div>
+      <div className='chart-container'>
+        <div className='chart' ref={this.chartContainer}></div>
       </div>
     )
   }
 }
 
-export default Chart
+export default ProfileChart

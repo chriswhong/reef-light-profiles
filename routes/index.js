@@ -57,15 +57,18 @@ module.exports = (User, Profile) => {
 
   router.get('/api/user', checkJwt, async (req, res) => {
     const { sub } = req.user
-    console.log(sub)
 
     const match = await User.findOne({ sub })
-    console.log(match)
     if (match) {
-      const { username } = match
+      const { username, _id } = match
+
+      // get profiles for this user
+      const profiles = await Profile.find({ user: _id })
+
       res.json({
         sub,
-        username
+        username,
+        profiles
       })
     }
 

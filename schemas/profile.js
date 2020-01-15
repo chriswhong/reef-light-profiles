@@ -11,6 +11,8 @@ var profileSchema = new Schema({
   title: String,
   description: String,
   settings: Object
+}, {
+  timestamps: true
 })
 
 module.exports = profileSchema

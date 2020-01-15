@@ -1,18 +1,29 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFish } from '@fortawesome/free-solid-svg-icons'
+import { faFish, faUser, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 
-const NavbarComponent = ({ user, isAuthenticated, loginWithRedirect, logout }) => {
+const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, logout }) => {
   let userNav = null
 
   if (user) {
     userNav = (
       <>
-      <NavDropdown title={user.nickname} id="collasible-nav-dropdown">
+      <Nav.Item>
+        <Link to='/dashboard' className='nav-link'>
+          Dashboard
+        </Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Link to={`/${username}`} className='nav-link'>
+          <FontAwesomeIcon icon={faUser}/> {user.nickname}
+        </Link>
+      </Nav.Item>
+      <NavDropdown title={<FontAwesomeIcon icon={faEllipsisH}/>} id="collasible-nav-dropdown">
         <NavDropdown.Item onClick={() => { logout() }}>Sign Out</NavDropdown.Item>
       </NavDropdown>
       </>
@@ -23,7 +34,7 @@ const NavbarComponent = ({ user, isAuthenticated, loginWithRedirect, logout }) =
         <Nav.Item>
           <Nav.Link href="/" onClick={() => {
             loginWithRedirect({
-              redirect_uri: 'http://localhost:3000/authenticated'
+              redirect_uri: 'http://localhost:3000/dashboard'
             })
           }}>Sign In</Nav.Link>
         </Nav.Item>

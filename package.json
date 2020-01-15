@@ -5,6 +5,7 @@
   "scripts": {
     "server-start": "nodemon ./bin/www",
     "start": "react-scripts start",
+    "start-all": "nodemon ./bin/www & yarn start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

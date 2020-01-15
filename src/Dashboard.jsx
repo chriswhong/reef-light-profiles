@@ -2,54 +2,40 @@ import React, { useState, useEffect } from 'react'
 import {
   Link
 } from 'react-router-dom'
+import ProfileChart from './ProfileChart'
 
-const Dashboard = ({ username, loading, getTokenSilently }) => {
-  const [dashboardData, setDashboardData] = useState(null)
+const ProfileCard = ({ profile }) => {
+  return (
+    <div className='card profile-card' style={{ width: '18rem' }}>
+      <div className='card-img-top'>
+        <ProfileChart data={profile.settings} />
+      </div>
+      <div className='card-body'>
+        <h5 className='card-title'>{profile.title}</h5>
+        <p className='card-text'>{profile.description}</p>
+        <a href='#' className='btn btn-primary'>Go somewhere</a>
+      </div>
+    </div>
+  )
+}
 
-  useEffect(() => {
-    // check if username exists
-    async function getUsername () {
-      if (!loading) {
-        const token = await getTokenSilently()
-        await fetch('/api/dashboard', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-          .then(d => d.json())
-          .then((res) => {
-            if (res.error) {
-              setDashboardData(null)
-            }
+const Dashboard = ({ username, profiles }) => {
+  let profileCards = <p>No Profiles</p>
 
-            setDashboardData(res)
-          })
-      }
-    }
-
-    getUsername()
-  }, [loading, getTokenSilently])
-
-  let profileItems = null
-
-  if (dashboardData) {
-    profileItems = dashboardData.map(({ _id, title }) => {
-      return (
-        <Link to={`/${username}/profile/${_id}`}>{ title }</Link>
-      )
-    })
+  if (profiles) {
+    profileCards = profiles.map((profile, i) => (
+      <ProfileCard key={i} profile={profile}/>
+    ))
   }
 
   return (
     <div className='container'>
-      <div className='row'>
-        <div className='col-8'>
-          <h2>Your Dashboard {username}</h2>
-          {profileItems}
-          <br/>
-          <Link to='/new'>Add a new profile</Link>
-        </div>
+      <h3>Dashboard for {username}</h3>
+      <h5>Your Lighting Profiles</h5>
+      <div className='d-flex justify-content-around'>
+        {profileCards}
       </div>
+      <Link to='/new'>Add a new lighting profile</Link>
     </div>
   )
 }

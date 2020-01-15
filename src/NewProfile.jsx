@@ -1,13 +1,11 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import convert from 'xml-js'
-import Chart from './Chart.jsx'
+import ProfileChart from './ProfileChart.jsx'
 import Dropzone from './Dropzone'
 
-import dummyJson from './dummy.json'
-
 const NewProfile = (props) => {
-  const { user, username, getTokenSilently } = props
+  const { saveProfile, username } = props
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [settings, setSettings] = React.useState(null)
@@ -27,23 +25,14 @@ const NewProfile = (props) => {
     if (id === 'description') setDescription(value)
   }
 
-  const publishProfile = async () => {
+  const handleSave = async () => {
     const data = {
       title,
       description,
       settings
     }
-    const token = await getTokenSilently()
-    const { _id } = await fetch('http://localhost:3000/api/profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    })
-      .then(d => d.json())
 
+    const { _id } = await saveProfile(data)
     props.history.push(`/${username}/profile/${_id}`)
   }
 
@@ -65,7 +54,7 @@ const NewProfile = (props) => {
           </div>
         </div>
         <div className='col-4'>
-          <button type="button" className="publish-btn btn btn-primary btn-lg" onClick={publishProfile} disabled={!valid}>Publish Profile</button>
+          <button type="button" className="publish-btn btn btn-primary btn-lg" onClick={handleSave} disabled={!valid}>Publish Profile</button>
         </div>
       </div>
       <div className='row'>
@@ -74,7 +63,7 @@ const NewProfile = (props) => {
             <label for='exampleFormControlTextarea1'>Light Settings {settings && <span className='small link-like' onClick={resetSettings}>reset</span>}</label>
             {
               settings
-                ? <Chart filename='foo' data={settings}/>
+                ? <ProfileChart filename='foo' data={settings}/>
                 : <Dropzone onFileParse={(xml, filename) => handleParsedFile(xml, filename)} />
             }
           </div>

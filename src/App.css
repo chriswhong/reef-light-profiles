@@ -217,3 +217,8 @@ h1, h2, h3, h4, h5, h6 {
   border: 5px #b3b3b3 dashed;
   border-radius: 18px;
 }
+
+
+.profile-card .chart {
+  height: 200px;
+}

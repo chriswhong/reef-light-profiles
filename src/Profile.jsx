@@ -1,6 +1,6 @@
 import React from 'react'
 import convert from 'xml-js'
-import Chart from './Chart.jsx'
+import ProfileChart from './ProfileChart.jsx'
 import Dropzone from './Dropzone'
 
 import dummyJson from './dummy.json'
@@ -43,7 +43,7 @@ const NewProfile = (props) => {
         <div className='col-md-12'>
           <div className='form-group'>
             <label htmlFor='exampleFormControlTextarea1'>Light Settings</label>
-            {settings && <Chart filename='foo' data={settings}/>}
+            {settings && <ProfileChart filename='foo' data={settings}/>}
           </div>
         </div>
       </div>
