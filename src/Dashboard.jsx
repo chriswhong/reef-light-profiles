@@ -2,22 +2,8 @@ import React, { useState, useEffect } from 'react'
 import {
   Link
 } from 'react-router-dom'
-import ProfileChart from './ProfileChart'
 
-const ProfileCard = ({ profile }) => {
-  return (
-    <div className='card profile-card' style={{ width: '18rem' }}>
-      <div className='card-img-top'>
-        <ProfileChart data={profile.settings} />
-      </div>
-      <div className='card-body'>
-        <h5 className='card-title'>{profile.title}</h5>
-        <p className='card-text'>{profile.description}</p>
-        <a href='#' className='btn btn-primary'>Go somewhere</a>
-      </div>
-    </div>
-  )
-}
+import ProfileCard from './ProfileCard'
 
 const Dashboard = ({ username, profiles }) => {
   let profileCards = <p>No Profiles</p>

@@ -55,6 +55,39 @@ module.exports = (User, Profile) => {
     })
   })
 
+  // get 10 recent profiles
+  router.get('/api/recently-added', async (req, res) => {
+    const profiles = await Profile.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'user',
+          foreignField: '_id',
+          as: 'username'
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          settings: 1,
+          updatedAt: 1,
+          username: {
+            $arrayElemAt: ['$username.username', 0]
+          }
+        }
+      }
+    ]).limit(10)
+    if (profiles) {
+      res.json(profiles)
+    }
+
+    res.status(422)
+    res.json({
+      error: 'no profiles found'
+    })
+  })
+
   router.get('/api/user', checkJwt, async (req, res) => {
     const { sub } = req.user
 

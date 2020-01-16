@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import Homepage from './Homepage'
 import Authenticate from './Authenticate'
 import Profile from './Profile'
 import NewProfile from './NewProfile'
@@ -15,7 +16,7 @@ import CreateUsername from './CreateUsername'
 import NavbarComponent from './NavbarComponent'
 import { useAuth0 } from './react-auth0-spa'
 
-import { fetchUsername } from './util/api'
+import { fetchUsername, fetchRecentlyAdded } from './util/api'
 
 const App = (props) => {
   const auth0 = useAuth0()
@@ -61,6 +62,23 @@ const App = (props) => {
     }
   }, [user])
 
+  // get recently added
+  useEffect(() => {
+    if (!store.recentlyAdded) {
+      fetchRecentlyAdded()
+        .then((res) => {
+          if (res.error) {
+            // setNoUsernameFound(true)
+          }
+          const profiles = res
+          setStore({
+            ...store,
+            recentlyAdded: profiles
+          })
+        })
+    }
+  })
+
   return (
     <div className="App">
       <Router>
@@ -68,15 +86,7 @@ const App = (props) => {
         <div className="content">
           <Switch>
             <Route exact path="/">
-                <>
-                  { user && (
-                  <>
-                    <p>You are logged in as {user.name}</p>
-                    <h3>Light Profiles</h3>
-                    <Link to='/new'>Add a new profile</Link>
-                  </>
-                  )}
-                </>
+              <Homepage recentlyAdded={store.recentlyAdded} />
             </Route>
             <Route path="/new" >
               <NewProfile username={store.username} saveProfile={saveProfile}/>
@@ -91,8 +101,8 @@ const App = (props) => {
             <Route path="/create-username">
               <CreateUsername />
             </Route>
-            <Route path="/:username" component={UserPage}/>
             <Route path="/:username/profile/:_id" component={Profile}/>
+            <Route path="/:username" component={UserPage}/>
           </Switch>
         </div>
       </Router>

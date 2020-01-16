@@ -44,7 +44,7 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
 
   return (
     <Navbar className="navbar navbar-expand-lg">
-      <Navbar.Brand href="#home"><FontAwesomeIcon icon={faFish} /> Reef Lighting Swap</Navbar.Brand>
+      <Navbar.Brand><Link to="/" className='nav-link'><FontAwesomeIcon icon={faFish} /> Reef Light Profiles</Link></Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className='ml-auto'>

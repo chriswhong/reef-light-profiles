@@ -33,20 +33,31 @@
 
 /* custom css */
 
-html, body {
-  background-color: #F7F7F6;
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
-  background-color: #EEEEEE;
-  border-bottom: 2px solid #E5E5E7;
+  background-color: #ffffff;
+  border-bottom: 1px solid #efefef;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   color: #000;
+  padding: 0.8rem 1rem;
+}
+
+.navbar-light .navbar-brand {
+  color: rgb(107, 107, 107);
+  font-weight: 600;
+}
+
+.navbar-brand svg {
+  color: #4582b4;
+}
+
+a.nav-link {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .user-photo {
@@ -60,10 +71,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #FFF;
   background: #76b1b1;
   padding: 0;
-}
-
-.content {
-  padding-top: 22px;
 }
 
 .fa-plus-square {
@@ -221,4 +228,37 @@ h1, h2, h3, h4, h5, h6 {
 
 .profile-card .chart {
   height: 200px;
+}
+
+.hero-container {
+  background-color: #e5e7eb;
+}
+
+.hero {
+  padding-top: 98px;
+  padding-bottom: 98px;
+}
+
+.hero h1 {
+  margin: 18px 0;
+}
+
+.hero p {
+  margin-bottom: 32px;
+}
+
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 60%;
+  box-shadow: 0px 0px 24px -11px rgba(0,0,0,0.75);
+  border-radius: 12px;
+}
+
+.recently-added {
+  margin-top: 40px;
 }

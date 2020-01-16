@@ -9,6 +9,12 @@ async function fetchUsername (token) {
     .then(d => d.json())
 }
 
+async function fetchRecentlyAdded () {
+  return fetch('/api/recently-added')
+    .then(d => d.json())
+}
+
 export {
-  fetchUsername
+  fetchUsername,
+  fetchRecentlyAdded
 }
