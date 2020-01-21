@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 
+import { getUsername } from './util/api'
+
 const Authenticated = ({ setUsername, getTokenSilently, loading, username }) => {
   const [noUsernameFound, setNoUsernameFound] = useState(false)
 
   useEffect(() => {
     // check if username exists
-    async function getUsername () {
+    async function didMount () {
       if (!loading) {
         const token = await getTokenSilently()
-        await fetch('/api/user', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-          .then(d => d.json())
+        await getUsername(token, username)
           .then((res) => {
             if (res.error) {
               setNoUsernameFound(true)
@@ -25,7 +22,7 @@ const Authenticated = ({ setUsername, getTokenSilently, loading, username }) => 
       }
     }
 
-    getUsername()
+    didMount()
   }, [loading, getTokenSilently])
 
   if (noUsernameFound) {

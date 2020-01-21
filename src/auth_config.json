@@ -1,5 +1,5 @@
 {
   "domain": "reef-profiles.auth0.com",
-  "clientId": "4VbRJ3lroYHhWBN7vq5eSEqS643xlqBE",
-  "audience": "https://localhost:3000"
+  "clientId": "6v33DMWuGQIwKqnYBIwN4cj2wA9Wj97B",
+  "audience": "https://api.reeflightprofiles.com"
 }

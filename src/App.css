@@ -262,3 +262,19 @@ a.nav-link {
 .recently-added {
   margin-top: 40px;
 }
+
+.content {
+  padding-top: 30px;
+}
+
+.content-block {
+  margin-bottom: 30px;
+}
+
+.title-block {
+  margin-bottom: 30px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}

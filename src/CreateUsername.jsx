@@ -1,6 +1,8 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 
+import { putUsername } from './util/api'
+
 const CreateUsername = (props) => {
   const { getTokenSilently, setUsername: updateUsername } = props
   const [username, setUsername] = React.useState('')
@@ -9,15 +11,7 @@ const CreateUsername = (props) => {
   const submitUsername = async () => {
     const token = await getTokenSilently()
 
-    await fetch('/api/user', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ username })
-    })
-      .then(d => d.json())
+    await putUsername()
       .then((res) => {
         if (res.error) {
           setError(res.error)

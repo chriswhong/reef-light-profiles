@@ -21,9 +21,9 @@ const User = mongoose.model('User', userSchema)
 const Profile = mongoose.model('Profile', profileSchema)
 
 // allows CORS
-app.all('*', (req, res, next) => {
+app.use('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type, Authorization')
   res.header('Access-Control-Allow-Credentials', 'true')
 
   next()
@@ -42,11 +42,11 @@ app.use(bodyParser.json())
 
 app.use('/', require('./routes')(User, Profile))
 
-// proxy requests to the react dev server
-// TODO: make sure this only happens in development mode
-app.use('/', proxy({ target: 'http://localhost:3000', changeOrigin: true }))
-app.use('/static/*', proxy({ target: 'http://localhost:3000/static', changeOrigin: true }))
-app.use('/sockjs-node/*/*/websocket', proxy({ target: 'http://localhost:3000/sockjs-node/*/*/websocket', changeOrigin: true }))
+// // proxy requests to the react dev server
+// // TODO: make sure this only happens in development mode
+// app.use('/', proxy({ target: 'http://localhost:3000', changeOrigin: true }))
+// app.use('/static/*', proxy({ target: 'http://localhost:3000/static', changeOrigin: true }))
+// app.use('/sockjs-node/*/*/websocket', proxy({ target: 'http://localhost:3000/sockjs-node/*/*/websocket', changeOrigin: true }))
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

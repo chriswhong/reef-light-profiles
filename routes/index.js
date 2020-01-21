@@ -1,7 +1,6 @@
 var express = require('express')
 const jwt = require('express-jwt')
 const jwksRsa = require('jwks-rsa')
-const authConfig = require('./auth_config.json')
 
 const { jwtOptions } = require('../config')
 
@@ -19,7 +18,7 @@ var checkJwt = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: 'https://reef-profiles.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'https://localhost:3000',
+  audience: 'https://api.reeflightprofiles.com',
   issuer: 'https://reef-profiles.auth0.com/',
   algorithms: ['RS256']
 })
@@ -38,7 +37,7 @@ module.exports = (User, Profile) => {
   }
 
   // get user's list of profiles
-  router.get('/api/dashboard', checkJwt, async (req, res) => {
+  router.get('/dashboard', checkJwt, async (req, res) => {
     // find the user
     const { sub } = req.user
     const user = await User.findOne({ sub })
@@ -56,7 +55,7 @@ module.exports = (User, Profile) => {
   })
 
   // get 10 recent profiles
-  router.get('/api/recently-added', async (req, res) => {
+  router.get('/recently-added', async (req, res) => {
     const profiles = await Profile.aggregate([
       {
         $lookup: {
@@ -80,6 +79,7 @@ module.exports = (User, Profile) => {
     ]).limit(10)
     if (profiles) {
       res.json(profiles)
+      return
     }
 
     res.status(422)
@@ -88,7 +88,7 @@ module.exports = (User, Profile) => {
     })
   })
 
-  router.get('/api/user', checkJwt, async (req, res) => {
+  router.get('/user', checkJwt, async (req, res) => {
     const { sub } = req.user
 
     const match = await User.findOne({ sub })
@@ -96,7 +96,32 @@ module.exports = (User, Profile) => {
       const { username, _id } = match
 
       // get profiles for this user
-      const profiles = await Profile.find({ user: _id })
+      console.log('HERE', _id)
+      const profiles = await Profile.aggregate([
+        {
+          $match: { user: _id }
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'user',
+            foreignField: '_id',
+            as: 'username'
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            description: 1,
+            settings: 1,
+            updatedAt: 1,
+            username: {
+              $arrayElemAt: ['$username.username', 0]
+            }
+          }
+        }
+      ])
 
       res.json({
         sub,
@@ -111,7 +136,7 @@ module.exports = (User, Profile) => {
     })
   })
 
-  router.put('/api/user', checkJwt, async (req, res) => {
+  router.put('/user', checkJwt, async (req, res) => {
     const { sub } = req.user
     const { username } = req.body
 
@@ -136,14 +161,39 @@ module.exports = (User, Profile) => {
     })
   })
 
-  router.get('/api/profile/:_id', async (req, res) => {
+  router.get('/profile/:_id', async (req, res) => {
     const { _id } = req.params
 
-    const profile = await Profile.findOne({ _id })
-    res.json(profile)
+    const profile = await Profile.aggregate([
+      {
+        $match: { _id }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'user',
+          foreignField: '_id',
+          as: 'username'
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          description: 1,
+          settings: 1,
+          updatedAt: 1,
+          username: {
+            $arrayElemAt: ['$username.username', 0]
+          }
+        }
+      }
+    ])
+
+    res.json(profile[0])
   })
 
-  router.post('/api/profile', checkJwt, async (req, res) => {
+  router.post('/profile', checkJwt, async (req, res) => {
     const { title, description, settings } = req.body
     // find the user
     const { sub } = req.user

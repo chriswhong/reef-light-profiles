@@ -16,7 +16,7 @@ import CreateUsername from './CreateUsername'
 import NavbarComponent from './NavbarComponent'
 import { useAuth0 } from './react-auth0-spa'
 
-import { fetchUsername, fetchRecentlyAdded } from './util/api'
+import { getUsername, getRecentlyAdded, postProfile } from './util/api'
 
 const App = (props) => {
   const auth0 = useAuth0()
@@ -24,26 +24,18 @@ const App = (props) => {
 
   const [store, setStore] = useState({})
 
-  const saveProfile = async (profile) => {
+  const handleSaveProfile = async (profile) => {
     const token = await getTokenSilently()
-    return fetch('http://localhost:3000/api/profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(profile) // body data type must match "Content-Type" header
-    })
-      .then(d => d.json())
+    return postProfile(token, profile)
   }
 
   useEffect(() => {
     // once user exists, if there is no username, go get it
     if (user) {
       if (!store.username) {
-        const getUsername = async () => {
+        const didMount = async () => {
           const token = await getTokenSilently()
-          fetchUsername(token)
+          getUsername(token)
             .then((res) => {
               if (res.error) {
                 // setNoUsernameFound(true)
@@ -57,7 +49,7 @@ const App = (props) => {
             })
         }
 
-        getUsername()
+        didMount()
       }
     }
   }, [user])
@@ -65,7 +57,7 @@ const App = (props) => {
   // get recently added
   useEffect(() => {
     if (!store.recentlyAdded) {
-      fetchRecentlyAdded()
+      getRecentlyAdded()
         .then((res) => {
           if (res.error) {
             // setNoUsernameFound(true)
@@ -89,7 +81,7 @@ const App = (props) => {
               <Homepage recentlyAdded={store.recentlyAdded} />
             </Route>
             <Route path="/new" >
-              <NewProfile username={store.username} saveProfile={saveProfile}/>
+              <NewProfile username={store.username} onSaveProfile={handleSaveProfile}/>
             </Route>
             <Route
               path="/authenticate"
@@ -101,7 +93,7 @@ const App = (props) => {
             <Route path="/create-username">
               <CreateUsername />
             </Route>
-            <Route path="/:username/profile/:_id" component={Profile}/>
+            <Route path="/:username/profile/:_id" component={Profile} />
             <Route path="/:username" component={UserPage}/>
           </Switch>
         </div>

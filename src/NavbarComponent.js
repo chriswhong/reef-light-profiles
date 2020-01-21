@@ -33,9 +33,7 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
       <>
         <Nav.Item>
           <Nav.Link href="/" onClick={() => {
-            loginWithRedirect({
-              redirect_uri: 'http://localhost:3000/dashboard'
-            })
+            loginWithRedirect()
           }}>Sign In</Nav.Link>
         </Nav.Item>
       </>

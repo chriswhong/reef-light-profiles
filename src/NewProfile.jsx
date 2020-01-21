@@ -5,7 +5,7 @@ import ProfileChart from './ProfileChart.jsx'
 import Dropzone from './Dropzone'
 
 const NewProfile = (props) => {
-  const { saveProfile, username } = props
+  const { onSaveProfile, username } = props
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [settings, setSettings] = React.useState(null)
@@ -32,7 +32,7 @@ const NewProfile = (props) => {
       settings
     }
 
-    const { _id } = await saveProfile(data)
+    const { _id } = await onSaveProfile(data)
     props.history.push(`/${username}/profile/${_id}`)
   }
 
