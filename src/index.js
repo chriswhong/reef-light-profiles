@@ -9,13 +9,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
 import config from './auth_config.json'
 
-const apiDomain = process.env.NODE_ENV === 'production' ? 'https://api.reefprofiles.com' : 'http://localhost:3000'
+const domain = process.env.NODE_ENV === 'production' ? 'https://reeflightprofiles.com' : 'http://localhost:3000'
 
 ReactDOM.render(
   <Auth0Provider
     domain={config.domain}
     client_id={config.clientId}
-    redirect_uri={`${apiDomain}/dashboard`}
+    redirect_uri={`${domain}/dashboard`}
     audience={config.audience}
   >
     <App />

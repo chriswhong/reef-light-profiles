@@ -1,4 +1,4 @@
-const apiDomain = process.env.NODE_ENV === 'production' ? 'https://api.reefprofiles.com' : 'http://localhost:8080'
+const apiDomain = process.env.NODE_ENV === 'production' ? 'https://api.reeflightprofiles.com' : 'http://localhost:8080'
 
 async function getUsername (token) {
   // pass jwt, get username and profiles
@@ -11,7 +11,7 @@ async function getUsername (token) {
 }
 
 async function putUsername (token, username) {
-  return fetch('/user', {
+  return fetch(`${apiDomain}/user`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ async function getRecentlyAdded () {
 }
 
 async function getProfile (_id) {
-  return fetch(`/profile/${_id}`)
+  return fetch(`${apiDomain}/profile/${_id}`)
     .then(d => d.json())
 }
 

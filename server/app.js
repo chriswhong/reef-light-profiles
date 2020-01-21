@@ -2,8 +2,6 @@ const express = require('express')
 const path = require('path')
 const createError = require('http-errors')
 const cookieParser = require('cookie-parser')
-const mustacheExpress = require('mustache-express')
-const proxy = require('http-proxy-middleware')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -20,9 +18,11 @@ mongoose.connect(process.env.MONGO_URI)
 const User = mongoose.model('User', userSchema)
 const Profile = mongoose.model('Profile', profileSchema)
 
+const origin = process.env.NODE_ENV === 'production' ? 'https://reeflightprofiles.com' : 'http://localhost:3000'
+
 // allows CORS
 app.use('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+  res.header('Access-Control-Allow-Origin', origin)
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type, Authorization')
   res.header('Access-Control-Allow-Credentials', 'true')
 
@@ -30,7 +30,6 @@ app.use('*', (req, res, next) => {
 })
 
 // view engine setup
-app.engine('html', mustacheExpress())
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 
@@ -41,12 +40,6 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 
 app.use('/', require('./routes')(User, Profile))
-
-// // proxy requests to the react dev server
-// // TODO: make sure this only happens in development mode
-// app.use('/', proxy({ target: 'http://localhost:3000', changeOrigin: true }))
-// app.use('/static/*', proxy({ target: 'http://localhost:3000/static', changeOrigin: true }))
-// app.use('/sockjs-node/*/*/websocket', proxy({ target: 'http://localhost:3000/sockjs-node/*/*/websocket', changeOrigin: true }))
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
