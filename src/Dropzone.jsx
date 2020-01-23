@@ -42,7 +42,7 @@ const DropZone = (props) => {
     }
 
     acceptedFiles.forEach(file => reader.readAsBinaryString(file))
-  }, [])
+  }, [props])
 
   const {
     getRootProps,
@@ -61,6 +61,7 @@ const DropZone = (props) => {
     ...(isDragAccept ? acceptStyle : {}),
     ...(isDragReject ? rejectStyle : {})
   }), [
+    isDragAccept,
     isDragActive,
     isDragReject
   ])

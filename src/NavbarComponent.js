@@ -20,7 +20,7 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
       </Nav.Item>
       <Nav.Item>
         <Link to={`/${username}`} className='nav-link'>
-          <FontAwesomeIcon icon={faUser}/> {user.nickname}
+          <FontAwesomeIcon icon={faUser}/> {username}
         </Link>
       </Nav.Item>
       <NavDropdown title={<FontAwesomeIcon icon={faEllipsisH}/>} id="collasible-nav-dropdown">

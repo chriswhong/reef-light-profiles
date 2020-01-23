@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 import { getUsername } from './util/api'
 
-const Authenticated = ({ setUsername, getTokenSilently, loading, username }) => {
+const Authenticate = ({ setUsername, getTokenSilently, loading, username }) => {
   const [noUsernameFound, setNoUsernameFound] = useState(false)
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const Authenticated = ({ setUsername, getTokenSilently, loading, username }) => 
         const token = await getTokenSilently()
         await getUsername(token, username)
           .then((res) => {
+            console.log('res', res)
             if (res.error) {
               setNoUsernameFound(true)
             }
@@ -23,7 +24,7 @@ const Authenticated = ({ setUsername, getTokenSilently, loading, username }) => 
     }
 
     didMount()
-  }, [loading, getTokenSilently])
+  }, [setUsername, getTokenSilently, loading, username])
 
   if (noUsernameFound) {
     return <Redirect to="/create-username" />
@@ -40,4 +41,4 @@ const Authenticated = ({ setUsername, getTokenSilently, loading, username }) => 
   )
 }
 
-export default Authenticated
+export default Authenticate

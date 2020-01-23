@@ -4,14 +4,13 @@ import { withRouter } from 'react-router-dom'
 import { putUsername } from './util/api'
 
 const CreateUsername = (props) => {
-  const { getTokenSilently, setUsername: updateUsername } = props
+  const { getTokenSilently } = props
   const [username, setUsername] = React.useState('')
   const [error, setError] = React.useState('')
 
   const submitUsername = async () => {
     const token = await getTokenSilently()
-
-    await putUsername()
+    await putUsername(token, username)
       .then((res) => {
         if (res.error) {
           setError(res.error)

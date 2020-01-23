@@ -216,5 +216,22 @@ module.exports = (User, Profile) => {
     })
   })
 
+  router.get('/user/profiles/:username', async (req, res) => {
+    // find the user
+    const { username } = req.params
+    const user = await User.findOne({ username })
+
+    // find all matching profiles
+    const profiles = await Profile.find({ user: user._id })
+    if (profiles) {
+      res.json(profiles)
+    }
+
+    res.status(422)
+    res.json({
+      error: `no profiles found for user ${username}`
+    })
+  })
+
   return router
 }

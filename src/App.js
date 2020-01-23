@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
-  Redirect,
   Switch,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 import Homepage from './Homepage'
 import Authenticate from './Authenticate'
@@ -20,7 +18,7 @@ import { getUsername, getRecentlyAdded, postProfile } from './util/api'
 
 const App = (props) => {
   const auth0 = useAuth0()
-  const { loading, user, loginWithRedirect, logout, getTokenSilently } = auth0
+  const { user, loginWithRedirect, logout, getTokenSilently, loading } = auth0
 
   const [store, setStore] = useState({})
 
@@ -52,7 +50,7 @@ const App = (props) => {
         didMount()
       }
     }
-  }, [user])
+  }, [user, getTokenSilently, store])
 
   // get recently added
   useEffect(() => {
@@ -71,6 +69,13 @@ const App = (props) => {
     }
   })
 
+  const setUsername = (username) => {
+    setStore({
+      ...store,
+      username
+    })
+  }
+
   return (
     <div className="App">
       <Router>
@@ -85,15 +90,22 @@ const App = (props) => {
             </Route>
             <Route
               path="/authenticate"
-              render={() => <Authenticate />}
+              render={() => <Authenticate
+                getTokenSilently={getTokenSilently}
+                setUsername={setUsername}
+                loading={loading}
+                username={store.username}
+              />}
             />
             <Route path="/dashboard">
               <Dashboard user={user} username={store.username} profiles={store.profiles}/>
             </Route>
             <Route path="/create-username">
-              <CreateUsername />
+              <CreateUsername getTokenSilently={getTokenSilently} updateUsername={setUsername}/>
             </Route>
-            <Route path="/:username/profile/:_id" component={Profile} />
+            <Route path="/:username/profile/:_id" render={(props) => (
+              <Profile _id={props.match.params._id} username={store.username} />
+            )} />
             <Route path="/:username" component={UserPage}/>
           </Switch>
         </div>

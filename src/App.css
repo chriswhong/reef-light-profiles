@@ -263,6 +263,10 @@ a.nav-link {
   margin-top: 40px;
 }
 
+.recently-added h4 {
+  margin-bottom: 2rem;
+}
+
 .content {
   padding-top: 30px;
 }
@@ -277,4 +281,8 @@ a.nav-link {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
+}
+
+.dropdown-menu {
+  left: -120px;
 }

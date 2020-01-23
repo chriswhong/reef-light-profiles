@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import {
-  Link
-} from 'react-router-dom'
+import React from 'react'
+import Footer from './Footer'
+import { Link } from 'react-router-dom'
 
 import ProfileCard from './ProfileCard'
 
@@ -10,7 +9,7 @@ const Dashboard = ({ username, profiles }) => {
 
   if (profiles) {
     profileCards = profiles.map((profile, i) => (
-      <ProfileCard key={i} profile={profile}/>
+      <ProfileCard key={i} profile={profile} interactive={false} />
     ))
   }
 
@@ -21,7 +20,10 @@ const Dashboard = ({ username, profiles }) => {
       <div className='d-flex justify-content-around'>
         {profileCards}
       </div>
-      <Link to='/new'>Add a new lighting profile</Link>
+      <Link to='/new'>
+        <div className='btn btn-primary'>Add a new lighting profile</div>
+      </Link>
+      <Footer />
     </div>
   )
 }

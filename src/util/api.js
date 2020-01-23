@@ -44,10 +44,16 @@ async function postProfile (token, profile) {
     .then(d => d.json())
 }
 
+async function getUserProfiles (username) {
+  return fetch(`${apiDomain}/user/profiles/${username}`)
+    .then(d => d.json())
+}
+
 export {
   getUsername,
   putUsername,
   getRecentlyAdded,
   getProfile,
-  postProfile
+  postProfile,
+  getUserProfiles
 }

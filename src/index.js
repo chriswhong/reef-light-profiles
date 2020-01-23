@@ -15,7 +15,7 @@ ReactDOM.render(
   <Auth0Provider
     domain={config.domain}
     client_id={config.clientId}
-    redirect_uri={`${domain}/dashboard`}
+    redirect_uri={`${domain}/authenticate`}
     audience={config.audience}
   >
     <App />
