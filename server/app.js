@@ -11,7 +11,6 @@ const profileSchema = require('./schemas/profile')
 
 const app = express()
 
-console.log(process.env.MONGO_URI)
 // establish database connection
 mongoose.connect(process.env.MONGO_URI)
 // create a user model

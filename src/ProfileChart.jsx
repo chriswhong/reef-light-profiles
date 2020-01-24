@@ -9,7 +9,6 @@ class ProfileChart extends React.Component {
 
   componentDidMount () {
     const { data, interactive = true } = this.props
-    console.log(interactive)
 
     // clean up the data so it looks like
     // [

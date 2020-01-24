@@ -13,8 +13,6 @@ import { getProfile } from './util/api'
 const Profile = (props) => {
   const { _id, username } = props
 
-  console.log(username)
-
   const [hasError, setErrors] = React.useState(false)
   const [profile, setProfile] = React.useState({})
 
@@ -73,9 +71,13 @@ const Profile = (props) => {
             <h5> Description </h5>
             { description }
           </div>
-          { username && (
+          { username === profile.username && (
             <div className='content-block'>
-              <Link to={`/${profile.username}/profile/${_id}/edit`}><div className='btn btn-primary'><FontAwesomeIcon icon={faEdit}/>Edit Profile</div></Link>
+              <Link to={`/${profile.username}/profile/${_id}/edit`}>
+                <div className='btn btn-primary'>
+                  <FontAwesomeIcon icon={faEdit}/> Edit Profile
+                </div>
+              </Link>
             </div>
           )}
           <div className='content-block'>

@@ -20,10 +20,17 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
       </Nav.Item>
       <Nav.Item>
         <Link to={`/${username}`} className='nav-link'>
-          <FontAwesomeIcon icon={faUser}/> {username}
+
         </Link>
       </Nav.Item>
-      <NavDropdown title={<FontAwesomeIcon icon={faEllipsisH}/>} id="collasible-nav-dropdown">
+      <NavDropdown
+        title={
+          <>
+            <FontAwesomeIcon icon={faUser}/> {username}
+          </>
+        }
+        id="collasible-nav-dropdown"
+      >
         <NavDropdown.Item onClick={() => { logout() }}>Sign Out</NavDropdown.Item>
       </NavDropdown>
       </>
@@ -41,8 +48,19 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
   }
 
   return (
-    <Navbar className="navbar navbar-expand-lg">
+    <Navbar bg="light" expand="lg">
       <Navbar.Brand><Link to="/" className='nav-link'><FontAwesomeIcon icon={faFish} /> Reef Light Profiles</Link></Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className='ml-auto'>
+          {userNav}
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  )
+
+  return (
+    <Navbar className="navbar navbar-expand-lg">
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className='ml-auto'>

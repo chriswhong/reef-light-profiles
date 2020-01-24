@@ -15,14 +15,16 @@ const Dashboard = ({ username, profiles }) => {
 
   return (
     <div className='container'>
-      <h3>Dashboard for {username}</h3>
-      <h5>Your Lighting Profiles</h5>
+      <h3 className='my-3'>Dashboard for {username}</h3>
+      <h5 className='my-4'>Your Lighting Profiles</h5>
       <div className='d-flex justify-content-around'>
         {profileCards}
       </div>
-      <Link to='/new'>
-        <div className='btn btn-primary'>Add a new lighting profile</div>
-      </Link>
+      <div className='text-center my-5'>
+        <Link to='/new'>
+          <div className='btn btn-primary'>Add a new lighting profile</div>
+        </Link>
+      </div>
       <Footer />
     </div>
   )

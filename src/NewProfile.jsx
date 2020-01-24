@@ -1,14 +1,19 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useParams } from 'react-router-dom'
 import convert from 'xml-js'
 import ProfileChart from './ProfileChart.jsx'
 import Dropzone from './Dropzone'
+import { getProfile, postProfile, putProfile } from './util/api'
 
 const NewProfile = (props) => {
-  const { onSaveProfile, username } = props
+  const { getTokenSilently, username, editmode = false } = props
+  const { _id } = useParams()
+
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [settings, setSettings] = React.useState(null)
+
+  const [error, setError] = React.useState(null)
 
   const handleParsedFile = (xml, filename) => {
     const json = convert.xml2js(xml, { compact: true })
@@ -31,18 +36,50 @@ const NewProfile = (props) => {
       description,
       settings
     }
+    const token = await getTokenSilently()
 
-    const { _id } = await onSaveProfile(data)
-    props.history.push(`/${username}/profile/${_id}`)
+    if (editmode) {
+      await putProfile(token, _id, data)
+      props.history.push(`/${username}/profile/${_id}`)
+    } else {
+      const { _id } = await postProfile(token, data)
+      props.history.push(`/${username}/profile/${_id}`)
+    }
   }
 
   const valid = title && description && settings
+
+  React.useEffect(() => {
+    async function fetchData () {
+      await getProfile(_id)
+        .then(res => {
+          const { title, description, settings } = res
+          setTitle(title)
+          setDescription(description)
+          setSettings(settings)
+        })
+        .catch(err => setError(err))
+    }
+
+    // only fetch if we are in edit mode
+    if (editmode) {
+      fetchData()
+    }
+  }, [])
+
+  if (error) {
+    return (
+      <div className='container content'>
+        Oops, something went wrong
+      </div>
+    )
+  }
 
   return (
     <div className='container'>
       <div className='row'>
         <div className='col-8'>
-          <h2>New Light Profile</h2>
+          <h2>{ editmode ? 'Edit' : 'New'} Light Profile</h2>
           <p>Enter a title and description, then drag in your .aip file below.</p>
           <div className='form-group'>
             <label for='title'>Title</label>
@@ -54,7 +91,7 @@ const NewProfile = (props) => {
           </div>
         </div>
         <div className='col-4'>
-          <button type="button" className="publish-btn btn btn-primary btn-lg" onClick={handleSave} disabled={!valid}>Publish Profile</button>
+          <button type="button" className="publish-btn btn btn-primary btn-lg" onClick={handleSave} disabled={!valid}>{ editmode ? 'Save' : 'Publish'} Profile</button>
         </div>
       </div>
       <div className='row'>

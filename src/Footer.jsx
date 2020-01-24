@@ -4,15 +4,16 @@ import { faFish } from '@fortawesome/free-solid-svg-icons'
 
 const Footer = () => {
   return (
-    <div className='container'>
-      <footer className="pt-4 my-md-5 pt-md-5 border-top">
-        <div className="row">
-          <div className="col-12 col-md">
-            <FontAwesomeIcon icon={faFish}/>
-            <small className="d-block mb-3 text-muted">© 2020 Reef Light Profiles</small>
+    <div className='footer'>
+      <div className='container'>
+        <footer className="">
+          <div className="row">
+            <div className="col-12 col-md">
+              <small className="d-block text-muted"><FontAwesomeIcon icon={faFish}/> © 2020 Reef Light Profiles</small>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   )
 }

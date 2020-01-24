@@ -14,18 +14,13 @@ import CreateUsername from './CreateUsername'
 import NavbarComponent from './NavbarComponent'
 import { useAuth0 } from './react-auth0-spa'
 
-import { getUsername, getRecentlyAdded, postProfile } from './util/api'
+import { getUsername, getRecentlyAdded } from './util/api'
 
 const App = (props) => {
   const auth0 = useAuth0()
   const { user, loginWithRedirect, logout, getTokenSilently, loading } = auth0
 
   const [store, setStore] = useState({})
-
-  const handleSaveProfile = async (profile) => {
-    const token = await getTokenSilently()
-    return postProfile(token, profile)
-  }
 
   useEffect(() => {
     // once user exists, if there is no username, go get it
@@ -86,7 +81,7 @@ const App = (props) => {
               <Homepage recentlyAdded={store.recentlyAdded} />
             </Route>
             <Route path="/new" >
-              <NewProfile username={store.username} onSaveProfile={handleSaveProfile}/>
+              <NewProfile username={store.username} getTokenSilently={getTokenSilently} />
             </Route>
             <Route
               path="/authenticate"
@@ -103,6 +98,9 @@ const App = (props) => {
             <Route path="/create-username">
               <CreateUsername getTokenSilently={getTokenSilently} updateUsername={setUsername}/>
             </Route>
+            <Route path="/:username/profile/:_id/edit" render={(props) => (
+              <NewProfile _id={props.match.params._id} username={store.username} getTokenSilently={getTokenSilently} editmode />
+            )} />
             <Route path="/:username/profile/:_id" render={(props) => (
               <Profile _id={props.match.params._id} username={store.username} />
             )} />

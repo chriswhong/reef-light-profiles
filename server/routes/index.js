@@ -96,7 +96,6 @@ module.exports = (User, Profile) => {
       const { username, _id } = match
 
       // get profiles for this user
-      console.log('HERE', _id)
       const profiles = await Profile.aggregate([
         {
           $match: { user: _id }
@@ -216,13 +215,49 @@ module.exports = (User, Profile) => {
     })
   })
 
+  router.put('/profile/:_id', checkJwt, async (req, res) => {
+    const { _id } = req.params
+
+    Profile.update({ _id }, req.body, (err, { _id }) => {
+      if (err) console.error(err)
+      res.json({
+        success: true,
+        _id
+      })
+    })
+  })
+
   router.get('/user/profiles/:username', async (req, res) => {
     // find the user
     const { username } = req.params
     const user = await User.findOne({ username })
 
     // find all matching profiles
-    const profiles = await Profile.find({ user: user._id })
+    const profiles = await Profile.aggregate([
+      {
+        $match: { user: user._id }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'user',
+          foreignField: '_id',
+          as: 'username'
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          description: 1,
+          settings: 1,
+          updatedAt: 1,
+          username: {
+            $arrayElemAt: ['$username.username', 0]
+          }
+        }
+      }
+    ])
     if (profiles) {
       res.json(profiles)
     }

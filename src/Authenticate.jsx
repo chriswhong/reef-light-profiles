@@ -13,7 +13,6 @@ const Authenticate = ({ setUsername, getTokenSilently, loading, username }) => {
         const token = await getTokenSilently()
         await getUsername(token, username)
           .then((res) => {
-            console.log('res', res)
             if (res.error) {
               setNoUsernameFound(true)
             }

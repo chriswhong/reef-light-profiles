@@ -44,6 +44,18 @@ async function postProfile (token, profile) {
     .then(d => d.json())
 }
 
+async function putProfile (token, _id, profile) {
+  return fetch(`${apiDomain}/profile/${_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(profile)
+  })
+    .then(d => d.json())
+}
+
 async function getUserProfiles (username) {
   return fetch(`${apiDomain}/user/profiles/${username}`)
     .then(d => d.json())
@@ -55,5 +67,6 @@ export {
   getRecentlyAdded,
   getProfile,
   postProfile,
+  putProfile,
   getUserProfiles
 }
