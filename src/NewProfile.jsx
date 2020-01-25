@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter, useParams } from 'react-router-dom'
 import convert from 'xml-js'
+
 import ProfileChart from './ProfileChart.jsx'
 import Dropzone from './Dropzone'
 import { getProfile, postProfile, putProfile } from './util/api'
@@ -76,17 +77,17 @@ const NewProfile = (props) => {
   }
 
   return (
-    <div className='container'>
+    <div className='container my-5'>
       <div className='row'>
         <div className='col-8'>
           <h2>{ editmode ? 'Edit' : 'New'} Light Profile</h2>
           <p>Enter a title and description, then drag in your .aip file below.</p>
           <div className='form-group'>
-            <label for='title'>Title</label>
+            <h6>Title</h6>
             <input type='text' className='form-control' id='title' placeholder='Enter a title for this profile' value={title} onChange={handleChange} />
           </div>
           <div className='form-group'>
-            <label for='description'>Description</label>
+            <h6 for='description'>Description</h6>
             <textarea className='form-control' id='description' rows='3' value={description} onChange={handleChange}></textarea>
           </div>
         </div>
@@ -97,7 +98,7 @@ const NewProfile = (props) => {
       <div className='row'>
         <div className='col-md-12'>
           <div className='form-group'>
-            <label for='exampleFormControlTextarea1'>Light Settings {settings && <span className='small link-like' onClick={resetSettings}>reset</span>}</label>
+            <h6 for='exampleFormControlTextarea1'>Light Settings {settings && <span className='small link-like' onClick={resetSettings}>clear</span>}</h6>
             {
               settings
                 ? <ProfileChart filename='foo' data={settings}/>

@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFish, faUser, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import { faFish, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, logout }) => {
   let userNav = null
@@ -31,7 +31,11 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
         }
         id="collasible-nav-dropdown"
       >
-        <NavDropdown.Item onClick={() => { logout() }}>Sign Out</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => {
+          logout({
+            redirect_uri: 'foo'
+          })
+        }}>Sign Out</NavDropdown.Item>
       </NavDropdown>
       </>
     )

@@ -1,12 +1,11 @@
 import React from 'react'
 import ProfileCard from './ProfileCard'
-import Footer from './Footer'
 
 const Homepage = ({ recentlyAdded }) => {
   let profileCards
   if (recentlyAdded) {
     profileCards = recentlyAdded.map((profile, i) => (
-      <div className="col-12 col-md-4" key={i}>
+      <div className="col-12 col-md-6 col-lg-4" key={i}>
         <ProfileCard profile={profile} interactive={false}/>
       </div>
     ))
@@ -34,7 +33,6 @@ const Homepage = ({ recentlyAdded }) => {
         {profileCards}
       </div>
     </div>
-    <Footer />
     </>
   )
 }

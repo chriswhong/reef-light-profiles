@@ -13,6 +13,7 @@ import UserPage from './UserPage'
 import CreateUsername from './CreateUsername'
 import NavbarComponent from './NavbarComponent'
 import { useAuth0 } from './react-auth0-spa'
+import Footer from './Footer'
 
 import { getUsername, getRecentlyAdded } from './util/api'
 
@@ -102,11 +103,12 @@ const App = (props) => {
               <NewProfile _id={props.match.params._id} username={store.username} getTokenSilently={getTokenSilently} editmode />
             )} />
             <Route path="/:username/profile/:_id" render={(props) => (
-              <Profile _id={props.match.params._id} username={store.username} />
+              <Profile _id={props.match.params._id} username={store.username} getTokenSilently={getTokenSilently}/>
             )} />
             <Route path="/:username" component={UserPage}/>
           </Switch>
         </div>
+        <Footer />
       </Router>
     </div>
   )

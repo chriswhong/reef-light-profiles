@@ -227,6 +227,17 @@ module.exports = (User, Profile) => {
     })
   })
 
+  router.delete('/profile/:_id', checkJwt, async (req, res) => {
+    const { _id } = req.params
+
+    Profile.deleteOne({ _id }, (err) => {
+      if (err) console.error(err)
+      res.json({
+        success: true
+      })
+    })
+  })
+
   router.get('/user/profiles/:username', async (req, res) => {
     // find the user
     const { username } = req.params

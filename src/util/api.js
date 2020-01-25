@@ -56,6 +56,16 @@ async function putProfile (token, _id, profile) {
     .then(d => d.json())
 }
 
+async function deleteProfile (token, _id) {
+  return fetch(`${apiDomain}/profile/${_id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(d => d.json())
+}
+
 async function getUserProfiles (username) {
   return fetch(`${apiDomain}/user/profiles/${username}`)
     .then(d => d.json())
@@ -68,5 +78,6 @@ export {
   getProfile,
   postProfile,
   putProfile,
+  deleteProfile,
   getUserProfiles
 }

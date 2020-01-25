@@ -25,8 +25,8 @@ const UserPage = (props) => {
 
   if (profiles) {
     profileCards = profiles.map((profile, i) => (
-      <div className="col-4" key={i}>
-        <ProfileCard profile={profile} interactive={false}/>
+      <div className="col-12 col-md-6 col-lg-4" key={i}>
+        <ProfileCard profile={profile} showUser={false} interactive={false}/>
       </div>
     ))
   }
@@ -41,14 +41,13 @@ const UserPage = (props) => {
 
   return (
     <>
-      <div className='container'>
+      <div className='container my-5'>
         <h2>{username}'s light profiles</h2>
         <div className='row'>
           {profileCards}
         </div>
 
       </div>
-      <Footer />
     </>
   )
 }
