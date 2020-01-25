@@ -49,6 +49,7 @@ const Profile = (props) => {
 
     pom.setAttribute('href', window.URL.createObjectURL(bb))
     pom.setAttribute('download', filename)
+    pom.setAttribute('target', '_blank')
 
     pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':')
     pom.draggable = true
