@@ -29,8 +29,8 @@ class ProfileChart extends React.Component {
         name: color,
         values: data.ramp.colors[color].point.map((point) => {
           return {
-            intensity: parseInt(point.intensity._text),
-            time: parseInt(point.time._text)
+            intensity: parseInt(point.intensity),
+            time: parseInt(point.time)
           }
         })
       }

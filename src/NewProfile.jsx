@@ -6,6 +6,25 @@ import ProfileChart from './ProfileChart.jsx'
 import Dropzone from './Dropzone'
 import { getProfile, postProfile, putProfile } from './util/api'
 
+// removes the _text attribute that xml-js adds by default
+// from https://github.com/nashwaan/xml-js/issues/53
+const removeJsonTextAttribute = function (value, parentElement) {
+  try {
+    const pOpKeys = Object.keys(parentElement._parent)
+    const keyNo = pOpKeys.length
+    const keyName = pOpKeys[keyNo - 1]
+    const arrOfKey = parentElement._parent[keyName]
+    const arrOfKeyLen = arrOfKey.length
+    if (arrOfKeyLen > 0) {
+      const arr = arrOfKey
+      const arrIndex = arrOfKey.length - 1
+      arr[arrIndex] = value
+    } else {
+      parentElement._parent[keyName] = value
+    }
+  } catch (e) {}
+}
+
 const NewProfile = (props) => {
   const { getTokenSilently, username, editmode = false } = props
   const { _id } = useParams()
@@ -17,7 +36,10 @@ const NewProfile = (props) => {
   const [error, setError] = React.useState(null)
 
   const handleParsedFile = (xml, filename) => {
-    const json = convert.xml2js(xml, { compact: true })
+    const json = convert.xml2js(xml, {
+      compact: true,
+      textFn: removeJsonTextAttribute
+    })
     setSettings(json)
   }
 
@@ -66,7 +88,7 @@ const NewProfile = (props) => {
     if (editmode) {
       fetchData()
     }
-  }, [])
+  }, [_id, editmode])
 
   if (error) {
     return (
