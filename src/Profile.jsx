@@ -5,10 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClock, faEdit, faDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button } from 'react-bootstrap'
 
-import BuildAIP from './util/build-aip'
 import ProfileChart from './ProfileChart.jsx'
 
-import { getProfile, deleteProfile } from './util/api'
+import { apiDomain, getProfile, deleteProfile } from './util/api'
 
 const Profile = (props) => {
   const { _id, username, getTokenSilently } = props
@@ -39,24 +38,6 @@ const Profile = (props) => {
   }, [_id])
 
   const { title, description, settings } = profile
-
-  const downloadProfile = () => {
-    const aip = BuildAIP(settings)
-
-    var pom = document.createElement('a')
-    var filename = 'settings.aip'
-    var bb = new Blob([aip], { type: 'text/plain' })
-
-    pom.setAttribute('href', window.URL.createObjectURL(bb))
-    pom.setAttribute('download', filename)
-    pom.setAttribute('target', '_blank')
-
-    pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':')
-    pom.draggable = true
-    pom.classList.add('dragout')
-
-    pom.click()
-  }
 
   if (hasError) {
     return (
@@ -103,7 +84,7 @@ const Profile = (props) => {
           </div>
           <div className='content-block'>
             <h6> Download </h6>
-            <div className='btn btn-primary btn-lg w-100' onClick={downloadProfile}><FontAwesomeIcon icon={faDownload}/> .aip</div>
+            <a href={`${apiDomain}/profile/${_id}/download`}><div className='btn btn-primary btn-lg w-100'><FontAwesomeIcon icon={faDownload}/> .aip</div></a>
           </div>
         </div>
         <div className='col-12 col-md-8'>

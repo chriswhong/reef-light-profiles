@@ -62,17 +62,6 @@ const NavbarComponent = ({ user, username, isAuthenticated, loginWithRedirect, l
       </Navbar.Collapse>
     </Navbar>
   )
-
-  return (
-    <Navbar className="navbar navbar-expand-lg">
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className='ml-auto'>
-          {userNav}
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  )
 }
 
 export default NavbarComponent

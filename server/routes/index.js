@@ -1,15 +1,10 @@
-var express = require('express')
+const express = require('express')
 const jwt = require('express-jwt')
 const jwksRsa = require('jwks-rsa')
 
-const { jwtOptions } = require('../config')
+const BuildAIP = require('../util/build-aip')
 
 var router = express.Router()
-
-const getRecords = (type, response) => {
-  const match = response.find(d => d._id === type)
-  return match ? match.records : []
-}
 
 var checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
@@ -24,18 +19,6 @@ var checkJwt = jwt({
 })
 
 module.exports = (User, Profile) => {
-  // Generate an Access Token for the given User ID
-  const generateAccessToken = (userId) => {
-    const { expiresIn, issuer, audience, secret } = jwtOptions
-
-    return jwt.sign({}, secret, {
-      expiresIn,
-      audience,
-      issuer,
-      subject: userId.toString()
-    })
-  }
-
   // get user's list of profiles
   router.get('/dashboard', checkJwt, async (req, res) => {
     // find the user
@@ -158,6 +141,19 @@ module.exports = (User, Profile) => {
     res.json({
       user
     })
+  })
+
+  router.get('/profile/:_id/download', async (req, res) => {
+    const { _id } = req.params
+
+    const { settings } = await Profile.findOne({ _id })
+
+    const aip = BuildAIP(settings)
+
+    res.set('Content-Disposition', 'inline;filename=ai-settings.aip')
+    res.set('Content-Type', 'application/octet-stream')
+
+    res.send(aip)
   })
 
   router.get('/profile/:_id', async (req, res) => {

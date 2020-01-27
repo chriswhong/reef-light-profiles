@@ -1,5 +1,4 @@
 import React from 'react'
-import Footer from './Footer'
 import ProfileCard from './ProfileCard'
 
 import { getUserProfiles } from './util/api'

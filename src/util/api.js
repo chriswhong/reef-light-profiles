@@ -72,6 +72,7 @@ async function getUserProfiles (username) {
 }
 
 export {
+  apiDomain,
   getUsername,
   putUsername,
   getRecentlyAdded,
